@@ -25,29 +25,30 @@ const navigationBtn = `<div class="arrows__wrap">
 <button class="arrows__btn"><-</button>
 <button class="arrows__btn">-></button>
 </div>`;
-let arrowPrev;
-let arrowNext;
+
+app.insertAdjacentHTML(`beforeEnd`, navigationBtn);
+const arrowButtons = Array.from(app.querySelectorAll(`.arrows__btn`));
+const arrowPrev = arrowButtons[0];
+const arrowNext = arrowButtons[1];
 
 
-const addNavigation = () => {
-  app.insertAdjacentHTML(`beforeEnd`, navigationBtn);
-  arrowPrev = app.querySelector(`.arrows__btn--prev`);
-  arrowNext = app.querySelector(`.arrows__btn--next`);
-};
-
-addNavigation();
-
-
-const showScreen = (index) => {
+const showScreen = (number) => {
   main.innerHTML = ``;
-  main.appendChild(index);
+  main.appendChild(number);
 };
 
 let currentScreen = 0;
-const switchScreen = (index) => {
-  index = index >= screensArr.length ? 0 : index;
-  index = index < 0 ? screensArr.length - 1 : index;
-  currentScreen = index;
+const switchScreen = (number) => {
+  if (number < screensArr.length && number >= 0) {
+    number = number;
+  }
+  else if (number < 0) {
+    number = screensArr.length - 1;
+  }
+  else if (number >= screensArr.length) {
+    number = 0;
+  }
+  currentScreen = number;
   showScreen(screensArr[currentScreen]);
 };
 
